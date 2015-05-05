@@ -1,0 +1,17 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #526629;
+}
+
+canvas {
+    border: 1px solid #000000;
+}
+
+#container {
+    background-color: #CCFF66;
+    display: inline-block;
+    overflow: hidden;
+    height: 800px;
+    width: 800px;
+}

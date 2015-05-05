@@ -1,0 +1,20 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+canvas {
+    border: 1px solid #9C9898;
+}
+#tango {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 10px;
+}
+#container {
+    background-image: url("http://www.html5canvastutorials.com/demos/assets/blue-background.jpg");
+    display: inline-block;
+    overflow: hidden;
+    height: 365px;
+    width: 580px;
+}
