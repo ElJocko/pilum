@@ -9,5 +9,5 @@ module.exports = {
     },
     // The secret should be set to a non-guessable string that
     // is used to compute a session hash & jwt
-    jwtSecret: '/yZWqJ+5I1b7s7Rm4QOT/EmN83fLQOnRV6YOYiXjUOlORW9wsub+l5Rkp3sy1zqoshASbm6uY4AvVCdKT/2H/Q=='
+    jwtSecret: '/yZWqJ+5I1b7s7RmwQOT/EmN83fLQOwRV6YOYiXjUOlORW9wsub+l5Rkp3sy1zqoshNSbm6uY4AvVCdKT/2H/Q=='
 };
