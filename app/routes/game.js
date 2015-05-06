@@ -8,7 +8,6 @@ router.route('/game')
 
 router.route('/game/:gameId')
     .get(game.retrieveGame)
-    .put(game.updateGame)
     .delete(game.deleteGame);
 
 module.exports = router;

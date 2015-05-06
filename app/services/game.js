@@ -2,36 +2,60 @@
 
 var logger = require('../logger/logger');
 var Game = require('../models/game');
+var gameStates = require('../models/enumerations/gameStates');
 
-exports.retrieveGame = retrieveGame;
-exports.createGame = createGame;
-exports.updateGame = updateGame;
-exports.deleteGame = deleteGame;
-
-function retrieveGame(gameId, callback) {
-    logger.info('retrieving game', gameId);
-
+exports.retrieveGame = function(gameId, callback) {
     if (gameId) {
-        var game = {};
-        return callback(null, game);
+        Game.findById(gameId, function(err, game) {
+            if (err) {
+                return callback(err);
+            }
+            else if (!game) {
+                return callback(new Error('Could not find game', gameId));
+            }
+            else {
+                return callback(null, game);
+            }
+        });
     }
     else {
-        return callback({ msg: 'Missing gameId' }, null);
+        return callback(new Error('Missing gameId.'));
     }
 }
 
-function createGame(game, callback) {
-    logger.info('createGame()');
-    return callback(null, game);
+exports.createGame = function(game, callback) {
+    var game = new Game({ state: 'notStarted', currentTurn: '0' });
+    game.save(function (err, newGame) {
+        if (err) {
+            return callback(err);
+        }
+        else {
+            return callback(null, newGame);
+        }
+    });
 }
 
-function updateGame(game, callback) {
+exports.updateGame = function(game, callback) {
     logger.info('updateGame()');
     return callback(null, game);
 }
 
-function deleteGame(gameId, callback) {
-    logger.info('deleteGame()');
-    return callback(null);
+exports.deleteGame = function(gameId, callback) {
+    if (gameId) {
+        Game.findByIdAndRemove(gameId, function(err, game) {
+            if (err) {
+                return callback(err);
+            }
+            else if (!game) {
+                return callback(new Error('Could not find game', gameId));
+            }
+            else {
+                return callback(null, game);
+            }
+        });
+    }
+    else {
+        return callback(new Error('Missing gameId.'));
+    }
 }
 

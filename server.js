@@ -10,6 +10,30 @@ var routes = require('./app/routes/index');
 
 var config = require('./app/config/config');
 
+// Bootstrap db connection
+var db = mongoose.connect(config.dbUrl);
+logger.info('...Mongoose attempting to connect to ' + config.dbUrl);
+
+mongoose.connection.on('connected', function () {
+    logger.info('...Mongoose connected to ' + config.dbUrl);
+});
+
+mongoose.connection.on('disconnected', function () {
+    logger.info('...Mongoose disconnected from ' + config.dbUrl);
+});
+
+mongoose.connection.on('error', function (err) {
+    logger.warn('...Mongoose connection error: ' + err);
+    logger.warn('Database (mongoose) connection is required. Terminating app.');
+
+    // Delay 1 second for output to finish, then terminate
+    setTimeout(
+        function(){
+            process.exit(1);
+        },
+        1000);
+});
+
 app.use(morgan('dev', { stream : logger.stream }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,7 +56,7 @@ module.exports = app;
 
 if (!module.parent) {
     http.createServer(app).listen(config.port, function() {
-        console.log('Pilum Server listening on port ' + config.port + '.');
+        logger.info('Pilum Server listening on port ' + config.port + '.');
     });
 }
 

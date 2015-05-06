@@ -12,5 +12,9 @@
     "lodash": "^3.8.0",
     "mongoose": "^4.0.2",
     "winston": "^1.0.0"
+  },
+  "devDependencies": {
+    "expect": "^1.6.0",
+    "supertest": "^0.15.0"
   }
 }
