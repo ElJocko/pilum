@@ -59,8 +59,8 @@ describe('Game Service', function() {
 
     describe('retrieve bad gameId', function() {
         it('should not retrieve a game using a bad gameId', function(done) {
-            gameService.retrieveGame('ABC', function(err, game) {
-                expect(err).toExist();
+            gameService.retrieveGame('FFFFFFFFFFFFFFFFFFFFFFFF', function(err, game) {
+                expect(err).toNotExist();
                 expect(game).toNotExist();
 
                 done();
@@ -82,7 +82,7 @@ describe('Game Service', function() {
     describe('retrieve deleted game', function() {
         it('should not retrieve the deleted game', function(done) {
             gameService.retrieveGame(gameId, function(err, game) {
-                expect(err).toExist();
+                expect(err).toNotExist();
                 expect(game).toNotExist();
 
                 done();
@@ -103,7 +103,7 @@ describe('Game Service', function() {
 
     describe('delete bad gameId', function() {
         it('should not delete a game using a bad gameId', function(done) {
-            gameService.deleteGame('ABC', function(err, game) {
+            gameService.deleteGame('FFFFFFFFFFFFFFFFFFFFFFFF', function(err, game) {
                 expect(err).toExist();
                 expect(game).toNotExist();
 

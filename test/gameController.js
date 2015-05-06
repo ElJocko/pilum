@@ -56,7 +56,7 @@ describe('Game API', function() {
 
     describe('retrieve bad gameId', function() {
         it('should not retrieve a game using a bad gameId',  function(done) {
-            var apiPath = path.join('/api/game', 'ABC');
+            var apiPath = path.join('/api/game', 'FFFFFFFFFFFFFFFFFFFFFFFF');
             request(serverUrl)
                 .get(apiPath)
                 .expect(404)

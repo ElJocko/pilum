@@ -10,10 +10,8 @@ exports.retrieveGame = function(gameId, callback) {
             if (err) {
                 return callback(err);
             }
-            else if (!game) {
-                return callback(new Error('Could not find game', gameId));
-            }
             else {
+                //Note: game is null if not found
                 return callback(null, game);
             }
         });

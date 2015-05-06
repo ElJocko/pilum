@@ -7,6 +7,10 @@ exports.retrieveGame = function(req, res) {
     gameService.retrieveGame(req.params.gameId, function(err, game) {
         if (err) {
             logger.error('Unable to retrieve game:', err);
+            res.status(500).send('Unable to retrieve game.');
+        }
+        else if (!game) {
+            logger.warn('Game not found:', err);
             res.status(404).send('Game not found.');
         }
         else {
@@ -32,6 +36,10 @@ exports.deleteGame = function(req, res) {
         if (err) {
             logger.error('Unable to delete game:', err);
             res.status(500).send('Unable to delete game.');
+        }
+        else if (!game) {
+            logger.warn('Game not found:', err);
+            res.status(404).send('Game not found.');
         }
         else {
             res.status(200).send('ok');
