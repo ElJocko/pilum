@@ -87,5 +87,22 @@ describe('Game API', function() {
                 })
         });
     });
+
+    describe('delete game with bad gameId', function() {
+        it('should not delete a game using a bad gameId',  function(done) {
+            var apiPath = path.join('/api/game', 'FFFFFFFFFFFFFFFFFFFFFFFF');
+            request(serverUrl)
+                .delete(apiPath)
+                .expect(404)
+                .end(function(err, res) {
+                    if (err) {
+                        done(err);
+                    }
+                    else {
+                        done();
+                    }
+                })
+        });
+    });
 });
 

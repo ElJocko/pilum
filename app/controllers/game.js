@@ -4,7 +4,7 @@ var logger = require('../logger/logger');
 var gameService = require('../services/game');
 
 exports.retrieveGame = function(req, res) {
-    gameService.retrieveGame(req.params.gameId, function(err, game) {
+    gameService.retrieveGameById(req.params.gameId, function(err, game) {
         if (err) {
             logger.error('Unable to retrieve game:', err);
             res.status(500).send('Unable to retrieve game.');
@@ -32,7 +32,7 @@ exports.createGame = function(req, res) {
 }
 
 exports.deleteGame = function(req, res) {
-    gameService.deleteGame(req.params.gameId, function(err, game) {
+    gameService.deleteGameById(req.params.gameId, function(err, game) {
         if (err) {
             logger.error('Unable to delete game:', err);
             res.status(500).send('Unable to delete game.');

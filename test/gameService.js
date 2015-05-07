@@ -5,15 +5,20 @@ var mongoose = require('mongoose');
 
 describe('Game Service', function() {
     before(function(done) {
-        var db = mongoose.connect(config.dbUrl);
-
-        mongoose.connection.on('connected', function () {
+        if (mongoose.connection.readyState === 1) {
             done();
-        });
+        }
+        else {
+            var db = mongoose.connect(config.dbUrl);
 
-        mongoose.connection.on('error', function (err) {
-            done(err);
-        });
+            mongoose.connection.on('connected', function () {
+                done();
+            });
+
+            mongoose.connection.on('error', function (err) {
+                done(err);
+            });
+        }
     })
 
     var gameId = null;
@@ -35,7 +40,7 @@ describe('Game Service', function() {
 
     describe('retrieve', function() {
         it('should retrieve the created game', function(done) {
-            gameService.retrieveGame(gameId, function(err, game) {
+            gameService.retrieveGameById(gameId, function(err, game) {
                 expect(err).toBe(null);
                 expect(game).toExist();
                 expect(game.state).toBe('notStarted');
@@ -48,7 +53,7 @@ describe('Game Service', function() {
 
     describe('retrieve null', function() {
         it('should not retrieve a game using a null gameId', function(done) {
-            gameService.retrieveGame(null, function(err, game) {
+            gameService.retrieveGameById(null, function(err, game) {
                 expect(err).toExist();
                 expect(game).toNotExist();
 
@@ -59,7 +64,7 @@ describe('Game Service', function() {
 
     describe('retrieve bad gameId', function() {
         it('should not retrieve a game using a bad gameId', function(done) {
-            gameService.retrieveGame('FFFFFFFFFFFFFFFFFFFFFFFF', function(err, game) {
+            gameService.retrieveGameById('FFFFFFFFFFFFFFFFFFFFFFFF', function(err, game) {
                 expect(err).toNotExist();
                 expect(game).toNotExist();
 
@@ -70,7 +75,7 @@ describe('Game Service', function() {
 
     describe('delete', function() {
         it('should delete the created game', function(done) {
-            gameService.deleteGame(gameId, function(err, game) {
+            gameService.deleteGameById(gameId, function(err, game) {
                 expect(err).toBe(null);
                 expect(game).toExist();
 
@@ -81,7 +86,7 @@ describe('Game Service', function() {
 
     describe('retrieve deleted game', function() {
         it('should not retrieve the deleted game', function(done) {
-            gameService.retrieveGame(gameId, function(err, game) {
+            gameService.retrieveGameById(gameId, function(err, game) {
                 expect(err).toNotExist();
                 expect(game).toNotExist();
 
@@ -92,7 +97,7 @@ describe('Game Service', function() {
 
     describe('delete null', function() {
         it('should not delete a game using a null gameId', function(done) {
-            gameService.deleteGame(null, function(err, game) {
+            gameService.deleteGameById(null, function(err, game) {
                 expect(err).toExist();
                 expect(game).toNotExist();
 
@@ -103,8 +108,8 @@ describe('Game Service', function() {
 
     describe('delete bad gameId', function() {
         it('should not delete a game using a bad gameId', function(done) {
-            gameService.deleteGame('FFFFFFFFFFFFFFFFFFFFFFFF', function(err, game) {
-                expect(err).toExist();
+            gameService.deleteGameById('FFFFFFFFFFFFFFFFFFFFFFFF', function(err, game) {
+                expect(err).toNotExist();
                 expect(game).toNotExist();
 
                 done();
