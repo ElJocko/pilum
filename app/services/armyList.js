@@ -55,3 +55,13 @@ exports.deleteArmyListById = function(armyListId, callback) {
     }
 }
 
+exports.deleteAllArmyLists = function(callback) {
+    ArmyList.remove({ }, function(err) {
+        if (err) {
+            return callback(err);
+        }
+        else {
+            return callback();
+        }
+    });
+}
