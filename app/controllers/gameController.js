@@ -1,9 +1,25 @@
 'use strict';
 
-var logger = require('../logger/logger');
-var gameService = require('../services/game');
+var gameService = require('../services/gameService');
+var logger = require('../lib/logger');
 
-exports.retrieveGame = function(req, res) {
+exports.list = function(req, res) {
+    var query = { }; // Default is all games
+    if (req.query.name) {
+        query.name = req.query.name;
+    }
+    gameService.retrieveGames(query, function(err, games) {
+        if (err) {
+            logger.error('Unable to retrieve list of games: ' + err);
+            return res.status(500).send('Unable to get games. Server error.');
+        }
+        else {
+            return res.status(200).send(games);
+        }
+    });
+};
+
+exports.findById = function(req, res) {
     gameService.retrieveGameById(req.params.gameId, function(err, game) {
         if (err) {
             logger.error('Unable to retrieve game:', err);
@@ -19,7 +35,7 @@ exports.retrieveGame = function(req, res) {
     });
 }
 
-exports.createGame = function(req, res) {
+exports.create = function(req, res) {
     gameService.createGame({ }, function(err, game) {
         if (err) {
             logger.error('Unable to create game:', err);
@@ -31,7 +47,7 @@ exports.createGame = function(req, res) {
     })
 }
 
-exports.deleteGame = function(req, res) {
+exports.delete = function(req, res) {
     gameService.deleteGameById(req.params.gameId, function(err, game) {
         if (err) {
             logger.error('Unable to delete game:', err);

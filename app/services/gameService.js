@@ -1,8 +1,19 @@
 'use strict';
 
-var logger = require('../logger/logger');
+var logger = require('../lib/logger');
 var Game = require('../models/game');
 var gameStates = require('../models/enumerations/gameStates');
+
+exports.retrieveGames = function(query, callback) {
+    Game.find(query, function(err, games) {
+        if (err) {
+            return callback(err);
+        }
+        else {
+            return callback(null, games);
+        }
+    });
+};
 
 exports.retrieveGameById = function(gameId, callback) {
     if (gameId) {
