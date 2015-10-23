@@ -33,7 +33,7 @@ exports.findById = function(req, res) {
             res.status(200).send(game);
         }
     });
-}
+};
 
 exports.create = function(req, res) {
     gameService.createGame({ }, function(err, game) {
@@ -45,7 +45,7 @@ exports.create = function(req, res) {
             res.status(200).send(game);
         }
     })
-}
+};
 
 exports.delete = function(req, res) {
     gameService.deleteGameById(req.params.gameId, function(err, game) {
@@ -61,5 +61,5 @@ exports.delete = function(req, res) {
             res.status(200).send('ok');
         }
     });
-}
+};
 

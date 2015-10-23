@@ -30,7 +30,7 @@ exports.retrieveGameById = function(gameId, callback) {
     else {
         return callback(new Error('Missing gameId.'));
     }
-}
+};
 
 exports.createGame = function(gameData, callback) {
     var game = new Game({ state: 'notStarted', currentTurn: '0' });
@@ -42,12 +42,12 @@ exports.createGame = function(gameData, callback) {
             return callback(null, savedGame);
         }
     });
-}
+};
 
 exports.updateGame = function(gameData, callback) {
     logger.info('updateGame()');
     return callback(null, { });
-}
+};
 
 exports.deleteGameById = function(gameId, callback) {
     if (gameId) {
@@ -64,5 +64,5 @@ exports.deleteGameById = function(gameId, callback) {
     else {
         return callback(new Error('Missing gameId.'));
     }
-}
+};
 

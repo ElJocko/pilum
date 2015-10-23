@@ -1,6 +1,6 @@
 var expect = require('expect');
-var gameService = require('../app/services/game');
-var config = require('../app/config/config');
+var gameService = require('../app/services/gameService');
+var config = require('../app/lib/config');
 var mongoose = require('mongoose');
 
 describe('Game Service', function() {
@@ -19,7 +19,7 @@ describe('Game Service', function() {
                 done(err);
             });
         }
-    })
+    });
 
     var gameId = null;
 
@@ -36,7 +36,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('retrieve', function() {
         it('should retrieve the created game', function(done) {
@@ -49,7 +49,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('retrieve null', function() {
         it('should not retrieve a game using a null gameId', function(done) {
@@ -60,7 +60,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('retrieve bad gameId', function() {
         it('should not retrieve a game using a bad gameId', function(done) {
@@ -71,7 +71,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('delete', function() {
         it('should delete the created game', function(done) {
@@ -82,7 +82,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('retrieve deleted game', function() {
         it('should not retrieve the deleted game', function(done) {
@@ -93,7 +93,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('delete null', function() {
         it('should not delete a game using a null gameId', function(done) {
@@ -104,7 +104,7 @@ describe('Game Service', function() {
                 done();
             })
         })
-    })
+    });
 
     describe('delete bad gameId', function() {
         it('should not delete a game using a bad gameId', function(done) {
@@ -116,4 +116,4 @@ describe('Game Service', function() {
             })
         })
     })
-})
+});
